@@ -1,4 +1,4 @@
-// data.js - VERSÃO COM A CORREÇÃO FINAL DE SINTAXE
+// data.js - VERSÃO COMPLETA E CORRIGIDA
 const ftp = require('basic-ftp');
 const unzipper = require('unzipper');
 const { DBFFile } = require('dbffile');
@@ -96,3 +96,6 @@ function streamToBuffer(stream) {
     stream.on('error', reject);
     stream.on('end', () => resolve(Buffer.concat(chunks)));
   });
+}
+
+module.exports = { getCAInfo, loadData };
