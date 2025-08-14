@@ -1,3 +1,4 @@
+// data.js - VERSÃO COM A CORREÇÃO FINAL DE SINTAXE
 const ftp = require('basic-ftp');
 const unzipper = require('unzipper');
 const { DBFFile } = require('dbffile');
@@ -83,4 +84,15 @@ function getCAInfo(caNumber) {
       'Equipamento': caInfo.DS_EQUIPAMENTO,
       'Fabricante': caInfo.NO_FABRICANTE
     };
-  } else
+  } else {
+    return { error: `O CA "${caNumber}" não foi encontrado na base de dados.` };
+  }
+}
+
+function streamToBuffer(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', chunk => chunks.push(chunk));
+    stream.on('error', reject);
+    stream.on('end', () => resolve(Buffer.concat(chunks)));
+  });
